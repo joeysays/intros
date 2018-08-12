@@ -69,6 +69,33 @@ public class Passenger {
 			thread.start();
 		}
 	}
+	
+	public void run() {
+		boolean boarded = false;
+		
+		while (true) {
+			lock.lock();
+			
+			try {
+				Thread.sleep(3000);
+				
+				if (!boarded) {
+					station_wait_for_train(stations.get(this.start-1));
+				
+					if (this.boarded != null) {
+						boarded = true;
+					}
+					
+				}
+				
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			finally {
+				lock.unlock();
+			}
+		}
+	}
     
     
 }
